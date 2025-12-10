@@ -1,3 +1,18 @@
+source ~/git/z/z.sh
+
+set HISTSIZE= 
+set HISTFILESIZE=
+
+alias bat='batcat --paging=never'
+
+# Easier navigation: .., ..., ...., ....., ~ and -
+alias ..="cd .."
+alias ...="cd ../.."
+alias ....="cd ../../.."
+alias .....="cd ../../../.."
+alias ~="cd ~" # `cd` is probably faster to type though
+alias -- -="cd -"
+
 alias ll='exa -1a' 
 alias l='exa -lah --git' 
 alias ls=exa 
@@ -17,10 +32,10 @@ alias gss='git status -sb'
 alias gs='git status' 
 alias g-='git checkout -'
 alias gp='git push'
-alias gcm='git c'
-alias merge_master='echo merging to `git config branch.master.remote`/master; git fetch `git config branch.master.remote` master; git merge `git config branch.master.remote`/master --no-edit' 
-alias rebase_master='echo rebasing to `git config branch.master.remote`/master; git fetch `git config branch.master.remote` master; git merge --rebase `git config branch.master.remote`/master' 
-alias dist2master='git rev-list --count `git rev-parse --abbrev-ref HEAD`..`git config branch.master.remote`/master' 
-alias upstream='git push -u `git config branch.master.remote` `git rev-parse --abbrev-ref HEAD`' 
+alias gcm='git checkout main'
+alias merge_main='echo merging to `git config branch.main.remote`/main; git fetch `git config branch.main.remote` main; git merge `git config branch.main.remote`/main --no-edit' 
+alias rebase_main='echo rebasing to `git config branch.main.remote`/main; git fetch `git config branch.main.remote` main; git merge --rebase `git config branch.main.remote`/main' 
+alias dist2main='git rev-list --count `git rev-parse --abbrev-ref HEAD`..`git config branch.main.remote`/main' 
+alias upstream='git push -u `git config branch.main.remote` `git rev-parse --abbrev-ref HEAD`' 
 alias poop='git stash pop'
                                                                                                                                   

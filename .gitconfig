@@ -7,7 +7,7 @@
 	f = fetch
 	p = pull
 	c = checkout
-	cm = checkout master
+	cm = checkout main
 	cb = checkout -b
 	b = branch
 	a = add
