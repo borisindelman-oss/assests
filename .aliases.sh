@@ -13,6 +13,8 @@ alias .....="cd ../../../.."
 alias ~="cd ~" # `cd` is probably faster to type though
 alias -- -="cd -"
 
+alias acr='make acr-login'
+
 alias ll='exa -1a' 
 alias l='exa -lah --git' 
 alias ls=exa 
