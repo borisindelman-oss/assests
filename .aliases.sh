@@ -1,5 +1,7 @@
 source ~/git/z/z.sh
 
+
+
 set HISTSIZE= 
 set HISTFILESIZE=
 
@@ -13,7 +15,6 @@ alias .....="cd ../../../.."
 alias ~="cd ~" # `cd` is probably faster to type though
 alias -- -="cd -"
 
-alias acr='make acr-login'
 
 alias ll='exa -1a' 
 alias l='exa -lah --git' 
@@ -40,4 +41,34 @@ alias rebase_main='echo rebasing to `git config branch.main.remote`/main; git fe
 alias dist2main='git rev-list --count `git rev-parse --abbrev-ref HEAD`..`git config branch.main.remote`/main' 
 alias upstream='git push -u `git config branch.main.remote` `git rev-parse --abbrev-ref HEAD`' 
 alias poop='git stash pop'
-                                                                                                                                  
+
+# Wayve
+function wayvecli {
+     bazel run --ui_event_filters=-info,-stdout,-stderr --noshow_progress //tools/wayvecli:wayvecli -- $@
+}
+
+alias acr='make acr-login'
+alias pre_materialise='make acr-login; make -C /workspace/WayveCode/wayve/ai/si/materialisation publish-test'
+train_parking() {
+    if [ -z "$1" ]; then
+        echo "Usage: train_parking <session_tag>"
+        return 1
+    fi
+    session_tag="$1"
+    cmd="bazel run //wayve/ai/si/cli:cli -- --no-verify --experiment parking --platform AKS --cluster dgx-h100 --num_nodes 4 --project parking --priority P1 +mode=parking_bc_train model.model.gear_direction_dropout_probability=0.1 --force --session_tag \"$session_tag\""
+    echo "$cmd"
+    eval $cmd
+}
+
+start_jupyter() {
+    local token='moose-nugget-flame'
+    local port=8888
+    if curl --silent "http://localhost:${port}" | grep -qi 'login'; then
+        echo "Jupyter is already running at http://localhost:${port}"
+    else
+        make acr-login
+        bazel run //tools:jupyter_services -- --notebook-dir="$(pwd)" --NotebookApp.token="$token" --NotebookApp.password=''
+    fi
+}
+
+alias claude-npm='npx @anthropic-ai/claude-code@latest'
