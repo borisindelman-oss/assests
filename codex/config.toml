@@ -42,3 +42,5 @@ args = [
   "ghcr.io/github/github-mcp-server"
 ]
 
+[mcp_servers.github.env]
+GITHUB_PERSONAL_ACCESS_TOKEN = "${GITHUB_PERSONAL_ACCESS_TOKEN}"

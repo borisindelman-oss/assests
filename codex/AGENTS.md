@@ -16,6 +16,8 @@ Work style: telegraph; noun-phrases ok; drop grammar; min tokens.
 - Slash cmds: `~/.codex/prompts/`.
 - Web: search early; quote exact errors; prefer 2024–2025 sources; fallback Firecrawl (`pnpm mcp:*`) / `mcporter`.
 - Style: telegraph. Drop filler/grammar. Min tokens (global AGENTS + replies).
+- Task progress: document in the vault.
+- Todo / task list: keep under the vault. 
 
 ## Important Locations
 - Obsidian vault: `/home/borisindelman/git/vault`
@@ -92,6 +94,10 @@ Example:
 - Use Obsidian callouts for collapsible month sections.
 - Table of contents should link to month headings using markdown anchors.
 
+### Todo list
+- location: Main log: `/home/borisindelman/git/vault/codex/WayveCode/todo-list.md`
+- store as bulletpoints
+- clear task after finished
 
 <frontend_aesthetics>
 Avoid “AI slop” UI. Be opinionated + distinctive.
