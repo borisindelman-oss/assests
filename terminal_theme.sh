@@ -11,14 +11,20 @@ _git_prompt_info() {
     # Get branch and ahead/behind in one call
     local branch_info="$(git status -sb 2>/dev/null | head -1)"
     local branch="$(echo "$branch_info" | sed 's/^## //' | sed 's/\.\.\..*//')"
-    
+
     # Parse ahead/behind from status -sb (shows [ahead N, behind M])
     local ahead=0 behind=0
-    if [[ "$branch_info" =~ \[ahead\ ([0-9]+) ]]; then
-        ahead="${match[1]}"
-    fi
-    if [[ "$branch_info" =~ behind\ ([0-9]+) ]]; then
-        behind="${match[1]}"
+    # Extract the bracketed part if it exists
+    local bracket_content="$(echo "$branch_info" | sed -n 's/.*\[\(.*\)\].*/\1/p')"
+    if [[ -n "$bracket_content" ]]; then
+        # Parse ahead count
+        if [[ "$bracket_content" =~ ahead[[:space:]]+([0-9]+) ]]; then
+            ahead="${match[1]}"
+        fi
+        # Parse behind count
+        if [[ "$bracket_content" =~ behind[[:space:]]+([0-9]+) ]]; then
+            behind="${match[1]}"
+        fi
     fi
 
     # Get all status counts in ONE git status call
@@ -52,7 +58,7 @@ _parse_relative_path() {
 }
 
 _parse_docker_status() {
-    [[ -n "$CONTAINER_NAME" ]] && echo "🐋 {$CONTAINER_NAME[$SESSION]}"
+    [[ -n "${CONTAINER_NAME[$SESSION]}" ]] && echo "🐋 {${CONTAINER_NAME[$SESSION]}}"
 }
 
 # Enable prompt substitution for command execution in PS1
