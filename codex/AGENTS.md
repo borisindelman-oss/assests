@@ -1,7 +1,6 @@
 # AGENTS.MD
 
-Boris owns this. Start: say hi + 1 motivating line.
-Work style: telegraph; noun-phrases ok; drop grammar; min tokens.
+Boris owns this.
 
 ## Agent Protocol
 - Contact: Boris Indleman (@boris, boris.indelman@wayve.ai).
@@ -15,9 +14,9 @@ Work style: telegraph; noun-phrases ok; drop grammar; min tokens.
 - Editor: `cursor <path>`.
 - Slash cmds: `~/.codex/prompts/`.
 - Web: search early; quote exact errors; prefer 2024–2025 sources; fallback Firecrawl (`pnpm mcp:*`) / `mcporter`.
-- Style: telegraph. Drop filler/grammar. Min tokens (global AGENTS + replies).
-- Task progress: document in the vault.
+- Task progress: document in the vault for significant/code tasks only (see "When to log").
 - Todo / task list: keep under the vault. 
+- ExecPlans: When writing complex features or significant refactors, use an ExecPlan (as described in ~/.codex/PLANS.md) from design to implementation.
 
 ## Important Locations
 - Obsidian vault: `/home/borisindelman/git/vault`
@@ -68,6 +67,11 @@ Work style: telegraph; noun-phrases ok; drop grammar; min tokens.
 ### Vault location
 - Root: `/home/borisindelman/git/vault`
 - Codex notes: `/home/borisindelman/git/vault/codex/WayveCode/`
+
+### When to log
+- Log only for significant tasks: code/content changes, non-trivial implementations/refactors/designs, running build/test/CI, or executing an ExecPlan.
+- Do not log for simple questions/definitions, quick examples, or one-off command explanations.
+- If unsure, ask: "Log this task?"
 
 ### Structure & naming
 - Organize notes by month and week:
