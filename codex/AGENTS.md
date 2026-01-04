@@ -19,7 +19,7 @@ Boris owns this.
 - ExecPlans: When writing complex features or significant refactors, use an ExecPlan (as described in ~/.codex/PLANS.md) from design to implementation.
 
 ## Important Locations
-- Obsidian vault: `/home/borisindelman/git/vault`
+- Obsidian vault: `~/git/vault`
 
 ## PR Feedback
 - Active PR: `gh pr view --json number,title,url --jq '"PR #\\(.number): \\(.title)\\n\\(.url)"'`.
@@ -65,8 +65,8 @@ Boris owns this.
 ## Codex Vault Instructions
 
 ### Vault location
-- Root: `/home/borisindelman/git/vault`
-- Codex notes: `/home/borisindelman/git/vault/codex/WayveCode/`
+- Root: `~/git/vault`
+- Codex notes: `~/git/vault/codex/WayveCode/`
 
 ### When to log
 - Log only for significant tasks: code/content changes, non-trivial implementations/refactors/designs, running build/test/CI, or executing an ExecPlan.
@@ -83,7 +83,7 @@ Example:
 - `2025/12/Week-5/2025-12-29-release-bc-model-summary.md`
 
 ### Change log
-- Main log: `/home/borisindelman/git/vault/codex/WayveCode/agents-change-log.md`
+- Main log: `~/git/vault/codex/WayveCode/agents-change-log.md`
 - Every task summary must be linked from the change log.
 - Change log entries should include:
   - Topic
@@ -99,7 +99,7 @@ Example:
 - Table of contents should link to month headings using markdown anchors.
 
 ### Todo list
-- location: Main log: `/home/borisindelman/git/vault/codex/WayveCode/todo-list.md`
+- location: Main log: `~/git/vault/codex/WayveCode/todo-list.md`
 - store as bulletpoints
 - clear task after finished
 

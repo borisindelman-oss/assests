@@ -1,6 +1,6 @@
 ---
 name: project-manager
-description: Manage Codex projects in the Obsidian vault (create/list/switch/continue/status/summary) using vault-stored Markdown docs and a registry.
+description: Manage Codex projects in the Obsidian vault (create/list/switch/continue/status/summary) using a single Markdown file per project plus a registry.
 metadata:
   short-description: Vault-based project management
 ---
@@ -11,15 +11,16 @@ Use this skill whenever the user wants to create, switch, continue, list, or sum
 
 ## Source of truth
 - Template + workflow source: `/home/borisindelman/downloads/claude_project_creator.md`
-- Replace any GitHub tracker references with the vault registry + per-project status files.
+- Replace any GitHub tracker references with the vault registry + per-project status section.
 
 ## Storage layout (fixed)
 - Registry root: `/home/borisindelman/git/vault/codex/WayveCode/projects/`
 - Registry index: `/home/borisindelman/git/vault/codex/WayveCode/projects/projects.json`
 - Active pointer: `/home/borisindelman/git/vault/codex/WayveCode/projects/active-project.txt`
+- Projects index (human-friendly): `/home/borisindelman/git/vault/codex/WayveCode/projects.md`
 
 Each project lives in:
-`/home/borisindelman/git/vault/codex/WayveCode/projects/<slug>/`
+`/home/borisindelman/git/vault/codex/WayveCode/projects/<slug>/project.md`
 
 ## Registry format
 `projects.json` contains:
@@ -53,33 +54,22 @@ Each project lives in:
 ### Create project
 1. Ask discovery questions from the source doc (problem, users, integrations, constraints, success criteria).
 2. Slugify project name (lowercase, dashes, ASCII).
-3. Create project folder and scaffold files from templates in `assets/templates/`.
-4. Populate `PROJECT_INSTRUCTIONS.md` last, using the doc’s template but adapted to vault registry (no GitHub).
+3. Create project folder and scaffold `project.md` from the template in `assets/templates/project.md`.
+4. Populate the Status section and the Overview section with initial answers.
 5. Add entry to `projects.json` and set `active-project.txt`.
+6. Update `projects.md` with a row for the project and put the link on the project name using Markdown link syntax to avoid table pipe issues: `[Project Name](codex/WayveCode/projects/<slug>/project)`.
 
 ### Continue project
 1. Resolve project by name or `active-project.txt`.
-2. Read `PROJECT_INSTRUCTIONS.md`, `STATUS.md`, and `RUN.md` if present.
+2. Read `project.md`.
 3. Summarize current phase, priorities, blockers, and ask next action.
 
 ### Status / Summary
-- **Status**: phase + blockers + last_updated + next priorities.
+- **Status**: phase + blockers + last_updated + next priorities (from Status section).
 - **Summary**: high-level overview + current phase + priorities.
 
-## Templates
-Use templates from:
-`/home/borisindelman/.codex/skills/project-manager/assets/templates/`
+## Template
+Use the single-file template:
+`/home/borisindelman/.codex/skills/project-manager/assets/templates/project.md`
 
-Template files:
-- `PROJECT_OVERVIEW.md`
-- `TECHNICAL_ARCHITECTURE.md`
-- `DATABASE_SCHEMA.md`
-- `API_INTEGRATIONS.md`
-- `UI_SPECIFICATIONS.md`
-- `BUILD_PHASES.md`
-- `DEBUGGING_GUIDE.md`
-- `PROJECT_INSTRUCTIONS.md`
-- `STATUS.md`
-- `RUN.md`
-
-Only edit content relevant to the current project; keep files concise and Obsidian-friendly.
+Keep the file Obsidian-friendly, concise, and updated per session.

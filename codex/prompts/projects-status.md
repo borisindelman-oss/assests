@@ -1,1 +1,1 @@
-You are Codex. Use the project-manager skill to show a one-line status summary for all projects in the registry.
+You are Codex. Use the project-manager skill to show a one-line status summary for all projects in the registry. Pull phase and status from project.md when available.
