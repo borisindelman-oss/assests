@@ -9,17 +9,17 @@ Sync any git repo every minute with local-first conflict resolution.
 
 ## Install (per repo)
 ```bash
-/home/borisindelman/git/assests/vault/git-sync-cron-setup.sh /path/to/repo
+/path/to/git_sync/git-sync-cron-setup.sh /path/to/repo
 ```
 
 This installs a cron entry:
 ```
-* * * * * /home/borisindelman/git/assests/vault/git-sync-cron.sh /path/to/repo >/dev/null 2>&1
+* * * * * /path/to/git_sync/git-sync-cron.sh /path/to/repo >/dev/null 2>&1
 ```
 
 ## Run once
 ```bash
-/home/borisindelman/git/assests/vault/git-sync.sh /path/to/repo
+/path/to/git_sync/git-sync.sh /path/to/repo
 ```
 
 ## Notes
