@@ -30,7 +30,7 @@ network_access = true
 
 [mcp_servers.notion]
 url = "https://mcp.notion.com/mcp"
-startup_timeout_sec = 60
+startup_timeout_sec = 20
 
 [mcp_servers.github]
 command = "docker"
@@ -45,3 +45,9 @@ args = [
 
 [mcp_servers.github.env]
 GITHUB_PERSONAL_ACCESS_TOKEN = "${GITHUB_PERSONAL_ACCESS_TOKEN}"
+
+[mcp_servers.wandb]
+url = "https://mcp.withwandb.com/mcp"
+bearer_token_env_var = "WANDB_API_KEY"
+
+
