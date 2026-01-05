@@ -9,7 +9,7 @@ chmod +x /path/to/repo/git_sync/*.sh
 ```
 
 
-#Codex setup
+# Codex setup
 
 Link customization files 
 ```sh
