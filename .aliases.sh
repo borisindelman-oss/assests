@@ -72,7 +72,7 @@ start_jupyter() {
 }
 
 alias claude-npm='npx @anthropic-ai/claude-code@latest'
-alias codex-wayve='cd /workspace/WayveCode/ && bazel run //tools:codex -- --cd /home/borisindelman/git/assets/codex --cd /workspace/WayveCode/ --add-dir /home/borisindelman/git/vault --add-dir /workspace/WayveCode/ --add-dir /workspace/WayveCode/ /home/borisindelman/.codex --ask-for-approval on-failure --search '
+alias codex-wayve='cd /workspace/WayveCode/ && bazel run //tools:codex -- --add-dir /home/borisindelman/git/assets/codex --cd /workspace/WayveCode/ --add-dir /home/borisindelman/git/vault --add-dir /workspace/WayveCode/ --add-dir /workspace/WayveCode/ /home/borisindelman/.codex --ask-for-approval on-failure --search '
 alias codex-last='codex-wayve resume --last'
 
 # Wayve terminal logo (uv)
