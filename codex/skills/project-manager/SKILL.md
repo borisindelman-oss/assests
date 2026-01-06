@@ -12,6 +12,7 @@ Use this skill whenever the user wants to create, switch, continue, list, or sum
 ## Source of truth
 - Template + workflow source: `/home/borisindelman/downloads/claude_project_creator.md`
 - Replace any GitHub tracker references with the vault registry + per-project status section.
+- The project template is intentionally minimal; keep sections to Overview, Status, Requirements, Design, Build Phases, Decisions, Notes.
 
 ## Storage layout (fixed)
 - Registry root: `/home/borisindelman/git/vault/codex/WayveCode/projects/`
@@ -55,7 +56,7 @@ Each project lives in:
 1. Ask discovery questions from the source doc (problem, users, integrations, constraints, success criteria).
 2. Slugify project name (lowercase, dashes, ASCII).
 3. Create project folder and scaffold `project.md` from the template in `assets/templates/project.md`.
-4. Populate the Status section and the Overview section with initial answers.
+4. Populate the Overview, Status, and Requirements sections with initial answers.
 5. Add entry to `projects.json` and set `active-project.txt`.
 6. Update `projects.md` with a row for the project and put the link on the project name using Markdown link syntax to avoid table pipe issues: `[Project Name](codex/WayveCode/projects/<slug>/project)`.
 
@@ -72,4 +73,4 @@ Each project lives in:
 Use the single-file template:
 `/home/borisindelman/.codex/skills/project-manager/assets/templates/project.md`
 
-Keep the file Obsidian-friendly, concise, and updated per session.
+Keep the file Obsidian-friendly, concise, and updated per session. Do not reintroduce the removed sections (Quality Checklist, Runbook, UI specs, etc.).
