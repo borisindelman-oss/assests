@@ -20,8 +20,8 @@ Use this skill whenever the user wants to create, switch, continue, list, or sum
 - Active pointer: `/home/borisindelman/git/vault/codex/WayveCode/projects/active-project.txt`
 - Projects index (human-friendly): `/home/borisindelman/git/vault/codex/WayveCode/projects.md`
 
-Each project lives in:
-`/home/borisindelman/git/vault/codex/WayveCode/projects/<slug>/project.md`
+Each project lives in a single file:
+`/home/borisindelman/git/vault/codex/WayveCode/projects/<slug>.md`
 
 ## Registry format
 `projects.json` contains:
@@ -55,10 +55,10 @@ Each project lives in:
 ### Create project
 1. Ask discovery questions from the source doc (problem, users, integrations, constraints, success criteria).
 2. Slugify project name (lowercase, dashes, ASCII).
-3. Create project folder and scaffold `project.md` from the template in `assets/templates/project.md`.
+3. Create project file `<slug>.md` from the template in `assets/templates/project.md`.
 4. Populate the Overview, Status, and Requirements sections with initial answers.
 5. Add entry to `projects.json` and set `active-project.txt`.
-6. Update `projects.md` with a row for the project and put the link on the project name using Markdown link syntax to avoid table pipe issues: `[Project Name](codex/WayveCode/projects/<slug>/project)`.
+6. Update `projects.md` with a row for the project and put the link on the project name using Markdown link syntax to avoid table pipe issues: `[Project Name](codex/WayveCode/projects/<slug>)`.
 
 ### Continue project
 1. Resolve project by name or `active-project.txt`.
