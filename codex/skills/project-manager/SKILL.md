@@ -73,4 +73,6 @@ Each project lives in a single file:
 Use the single-file template:
 `/home/borisindelman/.codex/skills/project-manager/assets/templates/project.md`
 
+Only `project.md` is kept; legacy template fragments were removed to keep the skill minimal.
+
 Keep the file Obsidian-friendly, concise, and updated per session. Do not reintroduce the removed sections (Quality Checklist, Runbook, UI specs, etc.).
