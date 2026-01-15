@@ -54,7 +54,8 @@ train_parking() {
         echo "Usage: train_parking <session_tag>"
         return 1
     fi
-    session_tag="$1"
+    mode="$1"
+    session_tag="$2"
     cmd="bazel run //wayve/ai/si/cli:cli -- --no-verify --experiment parking --platform AKS --cluster dgx-h100 --num_nodes 4 --project parking --priority P1 +mode=parking_bc_train_wfm_october_2025 model.model.gear_direction_dropout_probability=0.1 --force --session_tag \"$session_tag\""
     echo "$cmd"
     eval $cmd
