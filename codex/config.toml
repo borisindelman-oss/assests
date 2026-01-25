@@ -53,3 +53,7 @@ url = "https://mcp.withwandb.com/mcp"
 bearer_token_env_var = "WANDB_API_KEY"
 
 
+[tui]
+# Desktop notifications from the TUI: boolean or filtered list. Default: true
+# Examples: false | ["agent-turn-complete", "approval-requested"]
+notifications = ["agent-turn-complete", "approval-requested"]
