@@ -18,13 +18,6 @@ Boris owns this.
 - Todo / task list: keep under the vault. 
 - ExecPlans: When writing complex features or significant refactors, use an ExecPlan (as described in ~/.codex/PLANS.md) from design to implementation.
 
-## Project Writeups
-For every project, write a detailed FOR[yourname].md file that explains the whole project in plain language.
-
-Explain the technical architecture, the structure of the codebase and how the various parts are connected, the technologies used, why we made these technical decisions, and lessons I can learn from it (this should include the bugs we ran into and how we fixed them, potential pitfalls and how to avoid them in the future, new technologies used, how good engineers think and work, best practices, etc).
-
-It should be very engaging to read; don't make it sound like boring technical documentation/textbook. Where appropriate, use analogies and anecdotes to make it more understandable and memorable.
-
 ## Important Locations
 - Obsidian vault: `~/git/vault`
 
@@ -109,6 +102,13 @@ Example:
 - location: Main log: `~/git/vault/codex/WayveCode/todo-list.md`
 - store as bulletpoints
 - clear task after finished
+
+### Project Writeups
+- Store project writeups in the vault, separate from the main logs.
+- For every project, write a detailed `FOR[yourname].md` file that explains the whole project in plain language.
+- Explain the technical architecture, the structure of the codebase and how the various parts are connected, the technologies used, why we made these technical decisions, and lessons I can learn from it (this should include the bugs we ran into and how we fixed them, potential pitfalls and how to avoid them in the future, new technologies used, how good engineers think and work, best practices, etc).
+- It should be very engaging to read; don't make it sound like boring technical documentation/textbook. Where appropriate, use analogies and anecdotes to make it more understandable and memorable.
+- Create a dedicated index page (table of contents) that links all project writeups and reads like a book with chapters on different topics to learn about our code.
 
 <frontend_aesthetics>
 Avoid “AI slop” UI. Be opinionated + distinctive.
