@@ -64,6 +64,7 @@ train_parking() {
 start_jupyter() {
     local token='moose-nugget-flame'
     local port=8888
+    # http://127.0.0.1:8888/tree?token=moose-nugget-flame
     if curl --silent "http://localhost:${port}" | grep -qi 'login'; then
         echo "Jupyter is already running at http://localhost:${port}"
     else
