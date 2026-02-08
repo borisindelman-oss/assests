@@ -1,85 +1,81 @@
 ---
 name: model-info-finder
-description: [TODO: Complete and informative explanation of what the skill does and when to use it. Include WHEN to use this skill - specific scenarios, file types, or tasks that trigger it.]
+description: Find model-catalogue model information by nickname or author and return either basic summaries or deep per-model details. Use when a user asks to look up models, confirm model identity, inspect metadata quickly, or fetch expanded model detail without opening Console.
 ---
 
 # Model Info Finder
 
 ## Overview
 
-[TODO: 1-2 sentences explaining what this skill enables]
+Resolve model information from model-catalogue with a predictable workflow.
+Support two query paths now: `nickname` and `author`, with `basic` or `deep` output depth.
 
-## Structuring This Skill
+## Quick Start
 
-[TODO: Choose the structure that best fits this skill's purpose. Common patterns:
+Run the helper script:
 
-**1. Workflow-Based** (best for sequential processes)
-- Works well when there are clear step-by-step procedures
-- Example: DOCX skill with "Workflow Decision Tree" -> "Reading" -> "Creating" -> "Editing"
-- Structure: ## Overview -> ## Workflow Decision Tree -> ## Step 1 -> ## Step 2...
+```bash
+python3 scripts/model_info.py --by nickname --query idealistic-opossum-cyan --mode basic --limit 5
+python3 scripts/model_info.py --by author --query boris --mode deep --limit 3
+```
 
-**2. Task-Based** (best for tool collections)
-- Works well when the skill offers different operations/capabilities
-- Example: PDF skill with "Quick Start" -> "Merge PDFs" -> "Split PDFs" -> "Extract Text"
-- Structure: ## Overview -> ## Quick Start -> ## Task Category 1 -> ## Task Category 2...
+Optional auth:
 
-**3. Reference/Guidelines** (best for standards or specifications)
-- Works well for brand guidelines, coding standards, or requirements
-- Example: Brand styling with "Brand Guidelines" -> "Colors" -> "Typography" -> "Features"
-- Structure: ## Overview -> ## Guidelines -> ## Specifications -> ## Usage...
+```bash
+export MODEL_CATALOGUE_TOKEN="<token>"
+```
 
-**4. Capabilities-Based** (best for integrated systems)
-- Works well when the skill provides multiple interrelated features
-- Example: Product Management with "Core Capabilities" -> numbered capability list
-- Structure: ## Overview -> ## Core Capabilities -> ### 1. Feature -> ### 2. Feature...
+## Workflow
 
-Patterns can be mixed and matched as needed. Most skills combine patterns (e.g., start with task-based, add workflow for complex operations).
+1. Parse request intent:
+- Query type `nickname` or `author`.
+- Output depth `basic` or `deep`.
 
-Delete this entire "Structuring This Skill" section when done - it's just guidance.]
+2. Execute helper script:
+- Prefer `scripts/model_info.py`.
+- Use `--by`, `--query`, `--mode`, and `--limit`.
 
-## [TODO: Replace with the first main section based on chosen structure]
+3. Present result:
+- For `basic`, return compact summaries.
+- For `deep`, return detailed model payloads per matched model.
+- If nothing matches, say so explicitly and suggest a broader query.
 
-[TODO: Add content here. See examples in existing skills:
-- Code samples for technical skills
-- Decision trees for complex workflows
-- Concrete examples with realistic user requests
-- References to scripts/templates/references as needed]
+## Commands
 
-## Resources (optional)
+Nickname lookup:
 
-Create only the resource directories this skill actually needs. Delete this section if no resources are required.
+```bash
+python3 scripts/model_info.py --by nickname --query "<nickname>" --mode basic
+```
 
-### scripts/
-Executable code (Python/Bash/etc.) that can be run directly to perform specific operations.
+Author lookup:
 
-**Examples from other skills:**
-- PDF skill: `fill_fillable_fields.py`, `extract_form_field_info.py` - utilities for PDF manipulation
-- DOCX skill: `document.py`, `utilities.py` - Python modules for document processing
+```bash
+python3 scripts/model_info.py --by author --query "<author_substring>" --mode basic
+```
 
-**Appropriate for:** Python scripts, shell scripts, or any executable code that performs automation, data processing, or specific operations.
+Deep details:
 
-**Note:** Scripts may be executed without loading into context, but can still be read by Codex for patching or environment adjustments.
+```bash
+python3 scripts/model_info.py --by nickname --query "<nickname>" --mode deep --limit 3
+```
 
-### references/
-Documentation and reference material intended to be loaded into context to inform Codex's process and thinking.
+JSON output:
 
-**Examples from other skills:**
-- Product management: `communication.md`, `context_building.md` - detailed workflow guides
-- BigQuery: API reference documentation and query examples
-- Finance: Schema documentation, company policies
+```bash
+python3 scripts/model_info.py --by author --query "<author>" --mode deep --json
+```
 
-**Appropriate for:** In-depth documentation, API references, database schemas, comprehensive guides, or any detailed information that Codex should reference while working.
+## Reference
 
-### assets/
-Files not intended to be loaded into context, but rather used within the output Codex produces.
+Read `references/model-catalogue-endpoints.md` when endpoint behavior, payload shape, or troubleshooting details are needed.
 
-**Examples from other skills:**
-- Brand styling: PowerPoint template files (.pptx), logo files
-- Frontend builder: HTML/React boilerplate project directories
-- Typography: Font files (.ttf, .woff2)
+## Scope
 
-**Appropriate for:** Templates, boilerplate code, document templates, images, icons, fonts, or any files meant to be copied or used in the final output.
+Current scope:
+- Lookup by `nickname` and `author`.
+- Output depth `basic` and `deep`.
 
----
-
-**Not every skill requires all three types of resources.**
+Future expansion:
+- Add lookup by model ID and tags.
+- Add richer filtering and sorting options.
