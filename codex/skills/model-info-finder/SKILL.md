@@ -7,75 +7,80 @@ description: Find model-catalogue model information by nickname or author and re
 
 ## Overview
 
-Resolve model information from model-catalogue with a predictable workflow.
-Support two query paths now: `nickname` and `author`, with `basic` or `deep` output depth.
+Use curl only. Do not use Python scripts for this skill.
+Support lookup by `nickname` or `author`, and output either `basic` search results or `deep` model details.
 
 ## Quick Start
 
-Run the helper script:
+Set base URL and optional token:
 
 ```bash
-python3 scripts/model_info.py --by nickname --query idealistic-opossum-cyan --mode basic --limit 5
-python3 scripts/model_info.py --by author --query boris --mode deep --limit 3
-```
-
-Optional auth:
-
-```bash
+BASE_URL="https://model-catalogue-api.azr.internal.wayve.ai"
 export MODEL_CATALOGUE_TOKEN="<token>"
 ```
 
-## Workflow
+If auth is not required in your environment, skip `MODEL_CATALOGUE_TOKEN`.
 
-1. Parse request intent:
-- Query type `nickname` or `author`.
-- Output depth `basic` or `deep`.
+## Nickname Lookup
 
-2. Execute helper script:
-- Prefer `scripts/model_info.py`.
-- Use `--by`, `--query`, `--mode`, and `--limit`.
-
-3. Present result:
-- For `basic`, return compact summaries.
-- For `deep`, return detailed model payloads per matched model.
-- If nothing matches, say so explicitly and suggest a broader query.
-
-## Commands
-
-Nickname lookup:
+Basic:
 
 ```bash
-python3 scripts/model_info.py --by nickname --query "<nickname>" --mode basic
+curl -sS -G "$BASE_URL/v2/models/search" \
+  --data-urlencode "search=idealistic-opossum-cyan" \
+  --data-urlencode "limit=5" \
+  --data-urlencode "ingested_only=true" \
+  ${MODEL_CATALOGUE_TOKEN:+-H "Authorization: Bearer $MODEL_CATALOGUE_TOKEN"}
 ```
 
-Author lookup:
+Deep:
+- Run the basic command.
+- Copy one model id from the response (`id` or `model_session_id`).
+- Fetch details:
 
 ```bash
-python3 scripts/model_info.py --by author --query "<author_substring>" --mode basic
+curl -sS "$BASE_URL/v3/model/<model_id>" \
+  ${MODEL_CATALOGUE_TOKEN:+-H "Authorization: Bearer $MODEL_CATALOGUE_TOKEN"}
 ```
 
-Deep details:
+## Author Lookup
+
+Basic:
 
 ```bash
-python3 scripts/model_info.py --by nickname --query "<nickname>" --mode deep --limit 3
+SEARCH="boris"
+curl -sS "$BASE_URL/v2/models" \
+  -H "Content-Type: application/json" \
+  ${MODEL_CATALOGUE_TOKEN:+-H "Authorization: Bearer $MODEL_CATALOGUE_TOKEN"} \
+  -d "{
+    \"page\": 0,
+    \"items_per_page\": 25,
+    \"sort\": \"ingested_at\",
+    \"sort_direction\": \"DESC\",
+    \"archived\": false,
+    \"filters\": [
+      {
+        \"items\": [
+          {\"id\": 0, \"columnField\": \"author\", \"operatorValue\": \"contains\", \"value\": \"$SEARCH\"}
+        ],
+        \"linkOperator\": \"or\"
+      }
+    ]
+  }"
 ```
 
-JSON output:
+Deep:
+- Run the basic command.
+- Copy one model id from the response.
+- Fetch details:
 
 ```bash
-python3 scripts/model_info.py --by author --query "<author>" --mode deep --json
+curl -sS "$BASE_URL/v3/model/<model_id>" \
+  ${MODEL_CATALOGUE_TOKEN:+-H "Authorization: Bearer $MODEL_CATALOGUE_TOKEN"}
 ```
 
-## Reference
+## Output Rules
 
-Read `references/model-catalogue-endpoints.md` when endpoint behavior, payload shape, or troubleshooting details are needed.
-
-## Scope
-
-Current scope:
-- Lookup by `nickname` and `author`.
-- Output depth `basic` and `deep`.
-
-Future expansion:
-- Add lookup by model ID and tags.
-- Add richer filtering and sorting options.
+- `basic`: return the search response directly.
+- `deep`: search first, then fetch `/v3/model/<model_id>` for chosen model(s).
+- If there are no matches, report zero results and suggest broader query text.
