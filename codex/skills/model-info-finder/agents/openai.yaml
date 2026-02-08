@@ -1,4 +1,0 @@
-interface:
-  display_name: "Model Info Finder"
-  short_description: "Find model metadata by nickname or author"
-  default_prompt: "Look up model-catalogue entries by nickname or author and return basic or deep details."
