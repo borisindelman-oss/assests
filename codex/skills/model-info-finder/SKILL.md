@@ -140,3 +140,5 @@ curl -sS "$BASE_URL/v3/model/<model_id>" \
 - `basic`: return a table from search response rows.
 - `deep`: search first, then fetch `/v3/model/<model_id>` and return a table.
 - If there are no matches, report zero results and suggest broader query text.
+- In assistant responses, do not use Markdown tables by default. Prefer terminal-friendly plain text.
+- Print `console_url` as a raw URL (no backticks, no code block) so it stays clickable.
