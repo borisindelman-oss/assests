@@ -9,6 +9,7 @@ description: Find model-catalogue model information by nickname or author and re
 
 Use curl only. Do not use Python scripts for this skill.
 Support lookup by `nickname` or `author`, and output either `basic` search results or `deep` model details.
+For every summary, always include a Console link and pretty-print as a table.
 
 ## Quick Start
 
@@ -30,17 +31,43 @@ curl -sS -G "$BASE_URL/v2/models/search" \
   --data-urlencode "search=idealistic-opossum-cyan" \
   --data-urlencode "limit=5" \
   --data-urlencode "ingested_only=true" \
-  ${MODEL_CATALOGUE_TOKEN:+-H "Authorization: Bearer $MODEL_CATALOGUE_TOKEN"}
+  ${MODEL_CATALOGUE_TOKEN:+-H "Authorization: Bearer $MODEL_CATALOGUE_TOKEN"} \
+| jq -r '
+def rows:
+  if type=="array" then .
+  elif type=="object" then (.rows // .items // .results // .models // .data // [])
+  else [] end;
+(["id","nickname","author","ingested_at","console_url"] | @tsv),
+(rows[] | [
+  (.id // .model_session_id // .session_id // ""),
+  (.nickname // ""),
+  (.author // ""),
+  (.ingested_at // ""),
+  ("https://console.sso.wayve.ai/model/" + (.id // .model_session_id // .session_id // .nickname // ""))
+] | @tsv)
+' | column -t -s $'\t'
 ```
 
 Deep:
 - Run the basic command.
 - Copy one model id from the response (`id` or `model_session_id`).
-- Fetch details:
+- Fetch details and print as a one-row table:
 
 ```bash
 curl -sS "$BASE_URL/v3/model/<model_id>" \
-  ${MODEL_CATALOGUE_TOKEN:+-H "Authorization: Bearer $MODEL_CATALOGUE_TOKEN"}
+  ${MODEL_CATALOGUE_TOKEN:+-H "Authorization: Bearer $MODEL_CATALOGUE_TOKEN"} \
+| jq -r '
+(["id","nickname","author","session_type","created_at","ingested_at","console_url"] | @tsv),
+([
+  (.id // ""),
+  (.nickname // ""),
+  (.author // ""),
+  (.session_type // ""),
+  (.created_at // ""),
+  (.ingested_at // ""),
+  ("https://console.sso.wayve.ai/model/" + (.id // .nickname // ""))
+] | @tsv)
+' | column -t -s $'\t'
 ```
 
 ## Author Lookup
@@ -66,21 +93,50 @@ curl -sS "$BASE_URL/v2/models" \
         \"linkOperator\": \"or\"
       }
     ]
-  }"
+  }" \
+| jq -r '
+def rows:
+  if type=="array" then .
+  elif type=="object" then (.rows // .items // .results // .models // .data // [])
+  else [] end;
+(["id","nickname","author","ingested_at","console_url"] | @tsv),
+(rows[] | [
+  (.id // .model_session_id // .session_id // ""),
+  (.nickname // ""),
+  (.author // ""),
+  (.ingested_at // ""),
+  ("https://console.sso.wayve.ai/model/" + (.id // .model_session_id // .session_id // .nickname // ""))
+] | @tsv)
+' | column -t -s $'\t'
 ```
 
 Deep:
 - Run the basic command.
 - Copy one model id from the response.
-- Fetch details:
+- Fetch details and print as a one-row table:
 
 ```bash
 curl -sS "$BASE_URL/v3/model/<model_id>" \
-  ${MODEL_CATALOGUE_TOKEN:+-H "Authorization: Bearer $MODEL_CATALOGUE_TOKEN"}
+  ${MODEL_CATALOGUE_TOKEN:+-H "Authorization: Bearer $MODEL_CATALOGUE_TOKEN"} \
+| jq -r '
+(["id","nickname","author","session_type","created_at","ingested_at","console_url"] | @tsv),
+([
+  (.id // ""),
+  (.nickname // ""),
+  (.author // ""),
+  (.session_type // ""),
+  (.created_at // ""),
+  (.ingested_at // ""),
+  ("https://console.sso.wayve.ai/model/" + (.id // .nickname // ""))
+] | @tsv)
+' | column -t -s $'\t'
 ```
 
 ## Output Rules
 
-- `basic`: return the search response directly.
-- `deep`: search first, then fetch `/v3/model/<model_id>` for chosen model(s).
+- Always pretty-print summaries as tables.
+- Always include `console_url` in the table.
+- Build `console_url` as `https://console.sso.wayve.ai/model/<id_or_nickname>`.
+- `basic`: return a table from search response rows.
+- `deep`: search first, then fetch `/v3/model/<model_id>` and return a table.
 - If there are no matches, report zero results and suggest broader query text.
