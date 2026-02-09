@@ -317,7 +317,7 @@ FAILED_JOB_IDS=$(echo "$builds_json" | jq -r '
   | .buildkite_job_id
 ' | tr -d "\r")
 
-for JOB_ID in $FAILED_JOB_IDS; do
+echo "$FAILED_JOB_IDS" | sed '/^$/d' | while IFS= read -r JOB_ID; do
   echo "---- failing job: $JOB_ID ----"
   if [ -z "${BUILDKITE_TOKEN:-}" ]; then
     echo "BUILDKITE_TOKEN not set; cannot fetch Buildkite logs."
