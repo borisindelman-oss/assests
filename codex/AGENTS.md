@@ -16,7 +16,7 @@ Boris owns this.
 - Web: search early; quote exact errors; prefer 2024–2025 sources; fallback Firecrawl (`pnpm mcp:*`) / `mcporter`.
 - Task progress: document in the vault for significant/code tasks only (see "When to log").
 - Todo / task list: keep under the vault.
-- no code fallbacks l
+- Avoid using code fallbacks to cruteforce solutsion, like using try catch statements. Notify user if used.
 - ExecPlans: When writing complex features or significant refactors, use an ExecPlan (as described in ~/.codex/PLANS.md) from design to implementation.
 
 ## Important Locations
