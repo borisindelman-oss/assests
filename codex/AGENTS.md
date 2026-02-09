@@ -15,6 +15,8 @@ Boris owns this.
 - Slash cmds: `~/.codex/prompts/`.
 - Web: search early; quote exact errors; prefer 2024–2025 sources; fallback Firecrawl (`pnpm mcp:*`) / `mcporter`.
 - Task progress: document in the vault for significant/code tasks only (see "When to log").
+- Experiment-heavy debugging: when running many related experiments (especially suffix variants), monitor the batch and keep a short per-experiment summary: what changed, what it tried to solve, and what succeeded/failed.
+- For experiment-heavy debugging, always document the per-experiment summary in the relevant project/task page in the vault.
 - Todo / task list: keep under the vault.
 - Avoid using code fallbacks to cruteforce solutsion, like using try catch statements. Notify user if used.
 - ExecPlans: When writing complex features or significant refactors, use an ExecPlan (as described in ~/.codex/PLANS.md) from design to implementation.
@@ -103,6 +105,15 @@ Example:
 - location: Main log: `~/git/vault/codex/WayveCode/todo-list.md`
 - store as bulletpoints
 - clear task after finished
+
+### Experiment batch summaries
+- For debugging sessions with many similarly named runs, add a short run ledger to the relevant project/task note in the vault.
+- For each run, include:
+  - run name
+  - what was different
+  - hypothesis/problem it targeted
+  - outcome (success/fail/inconclusive) and key signal
+- Keep each run summary concise (1-3 lines) and update the ledger as new runs finish.
 
 ### Project Writeups
 - Store project writeups in the vault, separate from the main logs.
