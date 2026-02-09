@@ -115,13 +115,20 @@ Example:
   - outcome (success/fail/inconclusive) and key signal
 - Keep each run summary concise (1-3 lines) and update the ledger as new runs finish.
 
-### Project Writeups
-- Store project writeups in the vault, separate from the main logs.
-- Place `how_to_[topic].md` files under `~/git/vault/codex/WayveCode/how_to/`.
-- For every project, write a detailed `how_to_[topic].md` file that explains the whole project in plain language.
-- Explain the technical architecture, the structure of the codebase and how the various parts are connected, the technologies used, why we made these technical decisions, and lessons I can learn from it (this should include the bugs we ran into and how we fixed them, potential pitfalls and how to avoid them in the future, new technologies used, how good engineers think and work, best practices, etc).
-- It should be very engaging to read; don't make it sound like boring technical documentation/textbook. Where appropriate, use analogies and anecdotes to make it more understandable and memorable.
-- Create a dedicated index page (table of contents) that links all project writeups and reads like a book with chapters on different topics to learn about our code.
+### Project Newsletters
+- Store project newsletters in the vault, separate from the main logs.
+- Place `newsletter_[topic].md` files under `~/git/vault/codex/WayveCode/newsletters/`.
+- Replace `how_to` style docs with internally published newsletter-style writeups for specific work.
+- Keep the tone readable and engaging, but technically accurate.
+- Each newsletter should include:
+  - a short introduction (what/why)
+  - a focused deep dive into the relevant code area and how it works
+  - what was actually changed in this work
+  - code references (file paths and key lines/functions)
+  - branch references used for the work
+  - Mermaid diagrams where helpful to explain flow/architecture
+- Prefer narrative storytelling over rigid textbook structure, while still keeping concrete technical detail.
+- Create and maintain an index page (table of contents) that links all newsletters.
 
 <frontend_aesthetics>
 Avoid “AI slop” UI. Be opinionated + distinctive.
