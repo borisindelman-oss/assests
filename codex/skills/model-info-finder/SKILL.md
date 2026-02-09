@@ -343,7 +343,7 @@ done
 sg_ids_json=$(curl -sS "$BASE_URL/v2/model/$MODEL_ID/$CHECKPOINT_NUM/shadow_gym_execution_ids" "${AUTH_ARGS[@]}")
 echo "$sg_ids_json" | jq -r '
   def rows: if type=="array" then . else [] end;
-  ["shadow_gym_execution_id","created_at","suite_type","version_id"] | @tsv,
+  (["shadow_gym_execution_id","created_at","suite_type","version_id"] | @tsv),
   (rows[] | [.id // "", .created_at // "", .suite_type // "", .version_id // ""] | @tsv)
 ' | column -t -s $'\t'
 
