@@ -342,11 +342,15 @@ done
 ```bash
 sg_ids_json=$(curl -sS "$BASE_URL/v2/model/$MODEL_ID/$CHECKPOINT_NUM/shadow_gym_execution_ids" "${AUTH_ARGS[@]}")
 echo "$sg_ids_json" | jq -r '
+  def rows: if type=="array" then . else [] end;
   ["shadow_gym_execution_id","created_at","suite_type","version_id"] | @tsv,
-  (.[]? | [.id, .created_at, .suite_type, .version_id] | @tsv)
+  (rows[] | [.id // "", .created_at // "", .suite_type // "", .version_id // ""] | @tsv)
 ' | column -t -s $'\t'
 
-LATEST_SG_ID=$(echo "$sg_ids_json" | jq -r 'sort_by(.created_at // "") | reverse | .[0].id // empty')
+LATEST_SG_ID=$(echo "$sg_ids_json" | jq -r '
+  def rows: if type=="array" then . else [] end;
+  (rows | sort_by(.created_at // "") | reverse | .[0].id) // empty
+')
 if [ -n "$LATEST_SG_ID" ]; then
   curl -sS "$BASE_URL/v2/shadow-gym/executions/$LATEST_SG_ID/metadata" "${AUTH_ARGS[@]}" | jq -r .
 fi
