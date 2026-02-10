@@ -2,8 +2,8 @@
 set -euo pipefail
 
 SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
-# shellcheck source=./model_catalogue_helpers.sh
-source "$SCRIPT_DIR/model_catalogue_helpers.sh"
+# shellcheck source=./model_catalogue_api_helpers.sh
+source "$SCRIPT_DIR/model_catalogue_api_helpers.sh"
 
 if [ "$#" -lt 1 ] || [ "$#" -gt 2 ]; then
   echo "Usage: $(basename "$0") <model_ref (nickname or session_...)> [checkpoint_num]" >&2
