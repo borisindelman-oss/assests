@@ -24,20 +24,10 @@ preflight_common_requirements() {
   require_command curl "Install curl via your package manager."
   require_command jq "Install jq via your package manager."
   require_command column "Install the package that provides 'column' (for example util-linux or bsdextrautils)."
-
-  if [ -z "${MODEL_CATALOGUE_TOKEN:-}" ]; then
-    echo "NOTE: MODEL_CATALOGUE_TOKEN is not set." >&2
-    echo "If Model Catalogue requests fail with 401/403, run:" >&2
-    echo "  export MODEL_CATALOGUE_TOKEN=\"<token>\"" >&2
-  fi
 }
 
 mc_curl() {
-  if [ -n "${MODEL_CATALOGUE_TOKEN:-}" ]; then
-    curl -sS -H "Authorization: Bearer $MODEL_CATALOGUE_TOKEN" "$@"
-  else
-    curl -sS "$@"
-  fi
+  curl -sS "$@"
 }
 
 resolve_model_id() {

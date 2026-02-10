@@ -34,7 +34,6 @@ All scripts are in the same directory as this `SKILL.md`:
 
 ```bash
 BASE_URL="${BASE_URL:-https://model-catalogue-api.azr.internal.wayve.ai}"
-export MODEL_CATALOGUE_TOKEN="<token>"   # optional in some environments
 export BUILDKITE_TOKEN="<token>"          # required only for Buildkite log fetch
 ```
 
@@ -189,10 +188,10 @@ Behavior:
 ## Shared Helpers (`model_catalogue_api_helpers.sh`)
 
 `model_catalogue_api_helpers.sh` provides:
-- `mc_curl`: token-aware curl wrapper
+- `mc_curl`: curl wrapper for Model Catalogue API calls
 - `resolve_model_id <model_ref>`: resolves nickname/session, errors on ambiguous/no match
 - `latest_checkpoint_num <model_id>`: resolves latest checkpoint from `/v3/model/{id}`
-- `preflight_common_requirements`: checks required CLI dependencies and prints token guidance
+- `preflight_common_requirements`: checks required CLI dependencies
 
 ## Output Rules
 
