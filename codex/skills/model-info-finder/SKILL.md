@@ -7,7 +7,7 @@ description: Find model-catalogue model information by nickname or author and re
 
 ## Overview
 
-Use the shell scripts in this folder. They use `curl` + `jq` and share helpers from `common.sh`.
+Use the shell scripts in this folder. They use `curl` + `jq` and share helpers from `model_catalogue_helpers.sh`.
 Do not use Python scripts for this skill.
 
 Capabilities:
@@ -21,7 +21,7 @@ Capabilities:
 
 All scripts are in the same directory as this `SKILL.md`:
 
-- `common.sh`
+- `model_catalogue_helpers.sh`
 - `lookup_by_nickname.sh`
 - `lookup_by_author.sh`
 - `deep_model_summary.sh`
@@ -177,9 +177,9 @@ Behavior:
 - If failing jobs exist and `BUILDKITE_TOKEN` is set, fetches Buildkite logs into `/tmp/modelci_<build>_<job>.{json,log}` and prints key error lines
 - Prints Shadow Gym execution ids table and latest execution metadata
 
-## Shared Helpers (`common.sh`)
+## Shared Helpers (`model_catalogue_helpers.sh`)
 
-`common.sh` provides:
+`model_catalogue_helpers.sh` provides:
 - `mc_curl`: token-aware curl wrapper
 - `resolve_model_id <model_ref>`: resolves nickname/session, errors on ambiguous/no match
 - `latest_checkpoint_num <model_id>`: resolves latest checkpoint from `/v3/model/{id}`
