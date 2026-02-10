@@ -10,9 +10,11 @@ if [ "$#" -lt 1 ] || [ "$#" -gt 2 ]; then
   exit 1
 fi
 
+preflight_common_requirements
+
 model_ref="$1"
 model_id="$(resolve_model_id "$model_ref")"
-checkpoint_num="${2:-$(latest_checkpoint_num "$model_id")}" 
+checkpoint_num="${2:-$(latest_checkpoint_num "$model_id")}"
 
 mc_curl "$BASE_URL/v2/model/$model_id/$checkpoint_num/licenses" \
 | jq -r '

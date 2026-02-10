@@ -3,6 +3,35 @@ set -euo pipefail
 
 BASE_URL="${BASE_URL:-https://model-catalogue-api.azr.internal.wayve.ai}"
 
+require_command() {
+  local cmd="${1:?missing command name}"
+  local hint="${2:-}"
+
+  if command -v "$cmd" >/dev/null 2>&1; then
+    return 0
+  fi
+
+  echo "ERROR: missing required command '$cmd'." >&2
+  if [ -n "$hint" ]; then
+    echo "Install hint: $hint" >&2
+  else
+    echo "Install '$cmd' and rerun." >&2
+  fi
+  return 127
+}
+
+preflight_common_requirements() {
+  require_command curl "Install curl via your package manager."
+  require_command jq "Install jq via your package manager."
+  require_command column "Install the package that provides 'column' (for example util-linux or bsdextrautils)."
+
+  if [ -z "${MODEL_CATALOGUE_TOKEN:-}" ]; then
+    echo "NOTE: MODEL_CATALOGUE_TOKEN is not set." >&2
+    echo "If Model Catalogue requests fail with 401/403, run:" >&2
+    echo "  export MODEL_CATALOGUE_TOKEN=\"<token>\"" >&2
+  fi
+}
+
 mc_curl() {
   if [ -n "${MODEL_CATALOGUE_TOKEN:-}" ]; then
     curl -sS -H "Authorization: Bearer $MODEL_CATALOGUE_TOKEN" "$@"

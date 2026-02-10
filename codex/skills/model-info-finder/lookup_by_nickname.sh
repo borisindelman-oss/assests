@@ -10,6 +10,8 @@ if [ "$#" -lt 1 ] || [ "$#" -gt 2 ]; then
   exit 1
 fi
 
+preflight_common_requirements
+
 model_nickname="$1"
 limit="${2:-5}"
 

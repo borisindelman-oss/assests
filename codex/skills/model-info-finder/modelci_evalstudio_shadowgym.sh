@@ -10,6 +10,8 @@ if [ "$#" -lt 1 ] || [ "$#" -gt 2 ]; then
   exit 1
 fi
 
+preflight_common_requirements
+
 model_ref="$1"
 model_id="$(resolve_model_id "$model_ref")"
 checkpoint_num="${2:-$(latest_checkpoint_num "$model_id")}"
@@ -58,7 +60,9 @@ else
 
     echo "---- failing job: $job_id ----"
     if [ -z "${BUILDKITE_TOKEN:-}" ]; then
-      echo "BUILDKITE_TOKEN not set; skipping Buildkite log fetch."
+      echo "BUILDKITE_TOKEN not set; cannot fetch Buildkite logs for failed jobs." >&2
+      echo "Set it and rerun:" >&2
+      echo "  export BUILDKITE_TOKEN=\"<token>\"" >&2
       continue
     fi
 
@@ -69,9 +73,15 @@ else
       "https://api.buildkite.com/v2/organizations/wayve-dot-ai/pipelines/model-ci/builds/$latest_build_num/jobs/$job_id/log" \
       > "$json_path"
 
-    jq -r '.content' "$json_path" \
-      | perl -pe 's/\e\[[0-9;]*[A-Za-z]//g; s/\x1b_bk;t=\d+\x07//g' \
-      > "$log_path"
+    if command -v perl >/dev/null 2>&1; then
+      jq -r '.content' "$json_path" \
+        | perl -pe 's/\e\[[0-9;]*[A-Za-z]//g; s/\x1b_bk;t=\d+\x07//g' \
+        > "$log_path"
+    else
+      echo "NOTE: perl is not installed; writing raw Buildkite logs to $log_path." >&2
+      echo "Install hint: install perl for ANSI-cleaned log parsing." >&2
+      jq -r '.content' "$json_path" > "$log_path"
+    fi
 
     if command -v rg >/dev/null 2>&1; then
       rg -n "FAILED|failed|ERROR|Exception|Traceback|Timeout|ForwardPassException|exit code" "$log_path" | head -120 || true

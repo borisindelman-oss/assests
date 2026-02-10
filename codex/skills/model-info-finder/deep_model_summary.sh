@@ -10,6 +10,8 @@ if [ "$#" -ne 1 ]; then
   exit 1
 fi
 
+preflight_common_requirements
+
 model_ref="$1"
 model_id="$(resolve_model_id "$model_ref")"
 details_json="$(mc_curl "$BASE_URL/v3/model/$model_id")"

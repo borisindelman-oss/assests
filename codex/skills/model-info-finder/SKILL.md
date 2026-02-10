@@ -9,6 +9,7 @@ description: Find model-catalogue model information by nickname or author and re
 
 Use the shell scripts in this folder. They use `curl` + `jq` and share helpers from `model_catalogue_helpers.sh`.
 Do not use Python scripts for this skill.
+If a workflow is insufficient, update the relevant `.sh` script(s) in this folder and rerun; do not add large inline command blocks back into `SKILL.md`.
 
 Capabilities:
 - Lookup by model nickname or author
@@ -37,10 +38,18 @@ export MODEL_CATALOGUE_TOKEN="<token>"   # optional in some environments
 export BUILDKITE_TOKEN="<token>"          # required only for Buildkite log fetch
 ```
 
+Required CLI tools:
+- `curl`
+- `jq`
+- `column` (from `util-linux` or `bsdextrautils`)
+
+Optional tool:
+- `perl` (used to strip ANSI escape sequences from Buildkite logs)
+
 From this folder:
 
 ```bash
-cd /home/borisindelman/git/assests/codex/skills/model-info-finder
+cd /workspace/WayveCode/.ai/skills/model-info-finder
 ```
 
 ## Workflows
@@ -183,6 +192,7 @@ Behavior:
 - `mc_curl`: token-aware curl wrapper
 - `resolve_model_id <model_ref>`: resolves nickname/session, errors on ambiguous/no match
 - `latest_checkpoint_num <model_id>`: resolves latest checkpoint from `/v3/model/{id}`
+- `preflight_common_requirements`: checks required CLI dependencies and prints token guidance
 
 ## Output Rules
 
