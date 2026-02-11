@@ -69,7 +69,7 @@ Boris owns this.
 
 ### Vault location
 - Root: `~/git/vault`
-- Codex notes: `~/git/vault/codex/WayveCode/`
+- Codex notes: `~/git/vault/WayveCode/`
 
 ### When to log
 - Log only for significant tasks: code/content changes, non-trivial implementations/refactors/designs, running build/test/CI, or executing an ExecPlan.
@@ -78,15 +78,15 @@ Boris owns this.
 
 ### Structure & naming
 - Organize notes by month and week:
-  - `YYYY/MM/Week-N/`
+  - `agent_tasks/YYYY/MM/Week-N/`
 - File names must begin with the date:
   - `YYYY-MM-DD-<short-title>.md`
 
 Example:
-- `2025/12/Week-5/2025-12-29-release-bc-model-summary.md`
+- `agent_tasks/2025/12/Week-5/2025-12-29-release-bc-model-summary.md`
 
 ### Change log
-- Main log: `~/git/vault/codex/WayveCode/agents-change-log.md`
+- Main log: `~/git/vault/WayveCode/agents-change-log.md`
 - Every task summary must be linked from the change log.
 - Change log entries should include:
   - Topic
@@ -102,7 +102,7 @@ Example:
 - Table of contents should link to month headings using markdown anchors.
 
 ### Todo list
-- location: Main log: `~/git/vault/codex/WayveCode/todo-list.md`
+- location: Main log: `~/git/vault/WayveCode/todo-list.md`
 - store as bulletpoints
 - clear task after finished
 
@@ -117,7 +117,7 @@ Example:
 
 ### Project Newsletters
 - Store project newsletters in the vault, separate from the main logs.
-- Place `newsletter_[topic].md` files under `~/git/vault/codex/WayveCode/newsletters/`.
+- Place `newsletter_[topic].md` files under `~/git/vault/WayveCode/newsletters/`.
 - Replace `how_to` style docs with internally published newsletter-style writeups for specific work.
 - Keep the tone readable and engaging, but technically accurate.
 - Each newsletter should include:
