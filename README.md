@@ -11,7 +11,7 @@ chmod +x /path/to/repo/git_sync/*.sh
 
 # Codex setup
 
-Link customization files 
+Link customization files
 ```sh
 ln -s ~/git/assests/codex/AGENTS.md ~/.codex/AGENTS.md
 ln -s ~/git/assests/codex/config.toml ~/.codex/config.toml
@@ -29,7 +29,7 @@ export GITHUB_PERSONAL_ACCESS_TOKEN=''   # github -> settings -> developer setti
 2. W&B
 ```sh
 export WANDB_API_KEY=''    # https://wandb.ai/authorize
-export WANDB_ENTITY=wayve-ai 
+export WANDB_ENTITY=wayve-ai
 ```
 
 3. Notion
@@ -37,5 +37,25 @@ export WANDB_ENTITY=wayve-ai
 bazel run //tools:codex mcp login notion
 ```
 
+# 4. Databricks
+
+Add the following to your `.zshrc` or `.bashrc`:
+```sh
+export DATABRICKS_API_TOKEN=''   # Databricks user settings > Generate new token
+```
+
+# 5. Buildkite
+
+Add the following to your `.zshrc` or `.bashrc`:
+```sh
+export BUILDKITE_TOKEN=''   # Buildkite > User Settings > API Access Tokens
+```
+
+# 6. Datadog
+
+Add the following to your `.zshrc` or `.bashrc`:
+```sh
+export DATADOG_APP_KEY=''   # Datadog > Organization Settings > Application Keys
+```
 
 
