@@ -1,0 +1,4 @@
+interface:
+  display_name: "Model Catalogue Core"
+  short_description: "Resolve model/checkpoint primitives"
+  default_prompt: "Use $model-catalogue-core to resolve model IDs and latest checkpoints."

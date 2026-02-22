@@ -1,0 +1,4 @@
+interface:
+  display_name: "Datadog Logs Obs"
+  short_description: "Build Datadog links for pods/executions"
+  default_prompt: "Use $obs-datadog-logs to build Datadog URLs for this pod or execution."

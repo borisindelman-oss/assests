@@ -1,0 +1,4 @@
+interface:
+  display_name: "Flyte Execution Obs"
+  short_description: "Inspect Flyte status and task logs"
+  default_prompt: "Use $obs-flyte-execution to inspect this Flyte execution URL and report step status/log links."

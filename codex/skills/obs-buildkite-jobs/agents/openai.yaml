@@ -1,0 +1,4 @@
+interface:
+  display_name: "Buildkite Jobs Obs"
+  short_description: "Inspect Buildkite builds and job logs"
+  default_prompt: "Use $obs-buildkite-jobs to inspect this Buildkite build/job and extract failure logs."
