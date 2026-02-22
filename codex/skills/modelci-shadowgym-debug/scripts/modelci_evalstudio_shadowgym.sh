@@ -2,8 +2,9 @@
 set -euo pipefail
 
 SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
-# shellcheck source=./model_catalogue_api_helpers.sh
-source "$SCRIPT_DIR/model_catalogue_api_helpers.sh"
+SKILLS_ROOT="$(cd "$SCRIPT_DIR/../.." && pwd)"
+# shellcheck source=/dev/null
+source "$SKILLS_ROOT/model-catalogue-core/scripts/model_catalogue_api_helpers.sh"
 
 if [ "$#" -lt 1 ] || [ "$#" -gt 2 ]; then
   echo "Usage: $(basename "$0") <model_ref (nickname or session_...)> [checkpoint_num]" >&2
@@ -66,27 +67,19 @@ else
       continue
     fi
 
-    json_path="/tmp/modelci_${latest_build_num}_${job_id}.json"
-    log_path="/tmp/modelci_${latest_build_num}_${job_id}.log"
+    fetch_output="$(
+      BUILDKITE_ORG="${BUILDKITE_ORG:-wayve-dot-ai}" \
+      BUILDKITE_PIPELINE="${BUILDKITE_PIPELINE:-model-ci}" \
+      "$SKILLS_ROOT/obs-buildkite-jobs/scripts/fetch_buildkite_job_log.sh" \
+        "$latest_build_num" \
+        "$job_id" \
+        "/tmp/modelci_${latest_build_num}_${job_id}"
+    )"
+    echo "$fetch_output"
 
-    curl -sS -H "Authorization: Bearer $BUILDKITE_TOKEN" \
-      "https://api.buildkite.com/v2/organizations/wayve-dot-ai/pipelines/model-ci/builds/$latest_build_num/jobs/$job_id/log" \
-      > "$json_path"
-
-    if command -v perl >/dev/null 2>&1; then
-      jq -r '.content' "$json_path" \
-        | perl -pe 's/\e\[[0-9;]*[A-Za-z]//g; s/\x1b_bk;t=\d+\x07//g' \
-        > "$log_path"
-    else
-      echo "NOTE: perl is not installed; writing raw Buildkite logs to $log_path." >&2
-      echo "Install hint: install perl for ANSI-cleaned log parsing." >&2
-      jq -r '.content' "$json_path" > "$log_path"
-    fi
-
-    if command -v rg >/dev/null 2>&1; then
-      rg -n "FAILED|failed|ERROR|Exception|Traceback|Timeout|ForwardPassException|exit code" "$log_path" | head -120 || true
-    else
-      grep -En "FAILED|failed|ERROR|Exception|Traceback|Timeout|ForwardPassException|exit code" "$log_path" | head -120 || true
+    log_path="$(echo "$fetch_output" | awk -F= '/^CLEAN_LOG_PATH=/{print $2}')"
+    if [ -n "$log_path" ] && [ -f "$log_path" ]; then
+      "$SKILLS_ROOT/obs-buildkite-jobs/scripts/extract_error_lines.sh" "$log_path" 120 || true
     fi
   done <<< "$failed_job_ids"
 fi

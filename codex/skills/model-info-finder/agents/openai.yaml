@@ -1,0 +1,4 @@
+interface:
+  display_name: "Model Info Tree"
+  short_description: "Route model and observability requests"
+  default_prompt: "Use $model-info-finder to route this model request to the right underlying skills."
