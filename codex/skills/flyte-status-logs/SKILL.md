@@ -6,6 +6,7 @@ description: Inspect a Flyte execution from its console URL and return workflow 
 # Flyte Status + Logs
 
 Use this skill when the user provides a Flyte execution URL and wants status/log details.
+For new workflows, prefer the foundational `$obs-flyte-execution` skill (this skill is kept as a compatibility alias).
 
 ## Command
 

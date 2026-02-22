@@ -7,12 +7,6 @@ if [ "$#" -lt 1 ]; then
   exit 1
 fi
 
-REPO_ROOT="$(git rev-parse --show-toplevel 2>/dev/null || true)"
-if [ -z "$REPO_ROOT" ]; then
-  echo "ERROR: not inside a git workspace." >&2
-  exit 1
-fi
-
-cd "$REPO_ROOT"
-
-bazel run //wayve/prototypes/robotics/vehicle_dynamics/tools/flyte_status_logs:inspect_execution_logs_cli -- "$@"
+SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
+SKILLS_ROOT="$(cd "$SCRIPT_DIR/../.." && pwd)"
+exec "$SKILLS_ROOT/obs-flyte-execution/scripts/inspect_flyte_execution.sh" "$@"
