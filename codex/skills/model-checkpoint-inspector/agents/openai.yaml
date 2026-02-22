@@ -1,4 +1,4 @@
 interface:
   display_name: "Checkpoint Inspector"
   short_description: "Inspect checkpoint licenses and runs"
-  default_prompt: "Use -checkpoint-inspector to inspect checkpoint licenses and run history for this model."
+  default_prompt: "Use $model-checkpoint-inspector to inspect checkpoint licenses and run history for this model."

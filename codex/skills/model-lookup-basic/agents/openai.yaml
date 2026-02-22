@@ -1,4 +1,4 @@
 interface:
   display_name: "Model Lookup"
   short_description: "Lookup models by nickname or author"
-  default_prompt: "Use -lookup-basic to find models matching this nickname or author."
+  default_prompt: "Use $model-lookup-basic to find models matching this nickname or author."

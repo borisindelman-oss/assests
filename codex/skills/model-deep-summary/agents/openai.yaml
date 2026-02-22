@@ -1,4 +1,4 @@
 interface:
   display_name: "Model Deep Summary"
   short_description: "Get deep metadata for one model"
-  default_prompt: "Use -deep-summary to summarize this model with commit and licenses."
+  default_prompt: "Use $model-deep-summary to summarize this model with commit and licenses."

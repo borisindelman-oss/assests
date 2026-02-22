@@ -1,4 +1,4 @@
 interface:
   display_name: "ModelCI + ShadowGym"
   short_description: "Debug ModelCI, Eval Studio, Shadow Gym"
-  default_prompt: "Use -shadowgym-debug to inspect ModelCI status, Buildkite failures, and Shadow Gym metadata."
+  default_prompt: "Use $modelci-shadowgym-debug to inspect ModelCI status, Buildkite failures, and Shadow Gym metadata."

@@ -1,85 +1,69 @@
 ---
 name: model-checkpoint-inspector
-description: [TODO: Complete and informative explanation of what the skill does and when to use it. Include WHEN to use this skill - specific scenarios, file types, or tasks that trigger it.]
+description: Inspect checkpoint-level data for a model, including checkpoint licenses and run history. Use when a user asks for licenses or run-level evidence for a specific model/checkpoint.
 ---
 
 # Model Checkpoint Inspector
 
-## Overview
+Use shell scripts in `scripts/` for checkpoint-level inspection.
 
-[TODO: 1-2 sentences explaining what this skill enables]
+## Setup
 
-## Structuring This Skill
+```bash
+BASE_URL="${BASE_URL:-https://model-catalogue-api.azr.internal.wayve.ai}"
+```
 
-[TODO: Choose the structure that best fits this skill's purpose. Common patterns:
+Required commands:
+- `curl`
+- `jq`
+- `column`
 
-**1. Workflow-Based** (best for sequential processes)
-- Works well when there are clear step-by-step procedures
-- Example: DOCX skill with "Workflow Decision Tree" -> "Reading" -> "Creating" -> "Editing"
-- Structure: ## Overview -> ## Workflow Decision Tree -> ## Step 1 -> ## Step 2...
+## Commands
 
-**2. Task-Based** (best for tool collections)
-- Works well when the skill offers different operations/capabilities
-- Example: PDF skill with "Quick Start" -> "Merge PDFs" -> "Split PDFs" -> "Extract Text"
-- Structure: ## Overview -> ## Quick Start -> ## Task Category 1 -> ## Task Category 2...
+From this skill folder:
 
-**3. Reference/Guidelines** (best for standards or specifications)
-- Works well for brand guidelines, coding standards, or requirements
-- Example: Brand styling with "Brand Guidelines" -> "Colors" -> "Typography" -> "Features"
-- Structure: ## Overview -> ## Guidelines -> ## Specifications -> ## Usage...
+```bash
+cd /home/borisindelman/.codex/skills/model-checkpoint-inspector
+```
 
-**4. Capabilities-Based** (best for integrated systems)
-- Works well when the skill provides multiple interrelated features
-- Example: Product Management with "Core Capabilities" -> numbered capability list
-- Structure: ## Overview -> ## Core Capabilities -> ### 1. Feature -> ### 2. Feature...
+Checkpoint licenses:
 
-Patterns can be mixed and matched as needed. Most skills combine patterns (e.g., start with task-based, add workflow for complex operations).
+```bash
+./scripts/checkpoint_licenses.sh <model_ref> [checkpoint_num]
+```
 
-Delete this entire "Structuring This Skill" section when done - it's just guidance.]
+Checkpoint runs:
 
-## [TODO: Replace with the first main section based on chosen structure]
+```bash
+./scripts/checkpoint_runs.sh <model_ref> [checkpoint_num] [limit=20]
+```
 
-[TODO: Add content here. See examples in existing skills:
-- Code samples for technical skills
-- Decision trees for complex workflows
-- Concrete examples with realistic user requests
-- References to scripts/templates/references as needed]
+If `checkpoint_num` is omitted, scripts use latest checkpoint.
 
-## Resources (optional)
+## Expected columns
 
-Create only the resource directories this skill actually needs. Delete this section if no resources are required.
+Licenses:
+- `artefact_id`
+- `model_session_id`
+- `checkpoint_num`
+- `license_type`
+- `status`
+- `requested_by`
+- `created_at`
 
-### scripts/
-Executable code (Python/Bash/etc.) that can be run directly to perform specific operations.
+Runs:
+- `run_id`
+- `started_at`
+- `driver`
+- `run_type`
+- `distance_m`
+- `disengagement_count`
+- `episode_count`
+- `on_road_experiment_name`
+- `run_url`
 
-**Examples from other skills:**
-- PDF skill: `fill_fillable_fields.py`, `extract_form_field_info.py` - utilities for PDF manipulation
-- DOCX skill: `document.py`, `utilities.py` - Python modules for document processing
+## Output rules
 
-**Appropriate for:** Python scripts, shell scripts, or any executable code that performs automation, data processing, or specific operations.
-
-**Note:** Scripts may be executed without loading into context, but can still be read by Codex for patching or environment adjustments.
-
-### references/
-Documentation and reference material intended to be loaded into context to inform Codex's process and thinking.
-
-**Examples from other skills:**
-- Product management: `communication.md`, `context_building.md` - detailed workflow guides
-- BigQuery: API reference documentation and query examples
-- Finance: Schema documentation, company policies
-
-**Appropriate for:** In-depth documentation, API references, database schemas, comprehensive guides, or any detailed information that Codex should reference while working.
-
-### assets/
-Files not intended to be loaded into context, but rather used within the output Codex produces.
-
-**Examples from other skills:**
-- Brand styling: PowerPoint template files (.pptx), logo files
-- Frontend builder: HTML/React boilerplate project directories
-- Typography: Font files (.ttf, .woff2)
-
-**Appropriate for:** Templates, boilerplate code, document templates, images, icons, fonts, or any files meant to be copied or used in the final output.
-
----
-
-**Not every skill requires all three types of resources.**
+- Include clickable run links when reporting runs:
+  - `[Open run](https://console.sso.wayve.ai/run/<run_id>)`
+- Prefer plain text over markdown tables.
