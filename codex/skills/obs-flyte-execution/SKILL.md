@@ -27,3 +27,18 @@ Human-readable output:
 - Works for `flyte.data.wayve.ai` and `flyte.data.wayve.dev` console URLs.
 - Returns workflow status plus node/task phases and task log URIs.
 - If auth fails, report that Flyte auth in current environment is required.
+
+## Install To WayveCode `.ai/skills`
+
+Copy this skill into repo-local skills:
+
+```bash
+cd /home/borisindelman/.codex/skills/obs-flyte-execution
+./scripts/install_to_wayvecode_ai_skills.sh
+```
+
+Optional custom destination:
+
+```bash
+./scripts/install_to_wayvecode_ai_skills.sh /workspace/WayveCode/.ai/skills
+```
