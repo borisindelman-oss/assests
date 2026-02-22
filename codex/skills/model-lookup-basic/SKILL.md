@@ -6,6 +6,7 @@ description: Lookup model-catalogue sessions by nickname or author and return ba
 # Model Lookup Basic
 
 Use shell scripts in `scripts/` for lightweight model discovery.
+This skill depends on `$model-catalogue-core` for shared API helpers.
 
 ## Overview
 
@@ -41,6 +42,12 @@ Lookup by author:
 
 ```bash
 ./scripts/lookup_by_author.sh <author_search> [items_per_page=25]
+```
+
+If model id normalization is needed first:
+
+```bash
+/home/borisindelman/.codex/skills/model-catalogue-core/scripts/resolve_model.sh <model_ref>
 ```
 
 ## Expected columns

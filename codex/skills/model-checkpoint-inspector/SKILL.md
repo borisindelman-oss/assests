@@ -6,6 +6,7 @@ description: Inspect checkpoint-level data for a model, including checkpoint lic
 # Model Checkpoint Inspector
 
 Use shell scripts in `scripts/` for checkpoint-level inspection.
+This skill depends on `$model-catalogue-core` for model/checkpoint primitives.
 
 ## Setup
 

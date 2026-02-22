@@ -6,6 +6,9 @@ description: Inspect Model CI status for a model checkpoint, including failed Bu
 # ModelCI + ShadowGym Debug
 
 Use shell scripts in `scripts/` for Model CI / eval debugging.
+This skill depends on:
+- `$model-catalogue-core` for model/checkpoint resolution.
+- `$obs-buildkite-jobs` for Buildkite log retrieval and failure extraction.
 
 ## Setup
 

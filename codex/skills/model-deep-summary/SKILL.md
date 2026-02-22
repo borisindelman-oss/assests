@@ -6,6 +6,7 @@ description: Fetch an expanded per-model summary from Model Catalogue by nicknam
 # Model Deep Summary
 
 Use shell scripts in `scripts/` for detailed single-model metadata.
+This skill depends on `$model-catalogue-core` for model resolution.
 
 ## Setup
 
