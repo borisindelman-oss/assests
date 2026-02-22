@@ -9,10 +9,16 @@ Use this skill as the Flyte observability base layer.
 
 ## Command
 
-Run:
+Install runtime Bazel files into `WayveCode/.ai/skills` first:
 
 ```bash
 cd /home/borisindelman/.codex/skills/obs-flyte-execution
+./install.sh
+```
+
+Then run:
+
+```bash
 ./scripts/inspect_flyte_execution.sh "<flyte_execution_url>" --json
 ```
 
@@ -22,22 +28,31 @@ Human-readable output:
 ./scripts/inspect_flyte_execution.sh "<flyte_execution_url>"
 ```
 
+## Runtime Files
+
+This skill stores the Bazel runtime files in `~/.codex/skills/obs-flyte-execution/`:
+
+- `BUILD`
+- `inspect_execution_logs_cli.py`
+
+`install.sh` copies those two files to:
+
+- `/workspace/WayveCode/.ai/skills/obs-flyte-execution/`
+
+so Bazel can run:
+
+```bash
+bazel run //.ai/skills/obs-flyte-execution:inspect_execution_logs_cli -- "<flyte_execution_url>"
+```
+
 ## Notes
 
 - Works for `flyte.data.wayve.ai` and `flyte.data.wayve.dev` console URLs.
 - Returns workflow status plus node/task phases and task log URIs.
 - If auth fails, report that Flyte auth in current environment is required.
+- Re-run `./install.sh` whenever you change `BUILD` or `inspect_execution_logs_cli.py` in this skill.
 
-## Install To WayveCode `.ai/skills`
-
-Copy this skill into repo-local skills:
-
-```bash
-cd /home/borisindelman/.codex/skills/obs-flyte-execution
-./install.sh
-```
-
-Optional custom destination:
+Optional custom destination for `install.sh`:
 
 ```bash
 ./install.sh /workspace/WayveCode/.ai/skills

@@ -14,4 +14,4 @@ if [ -z "$REPO_ROOT" ]; then
 fi
 
 cd "$REPO_ROOT"
-bazel run //wayve/prototypes/robotics/vehicle_dynamics/tools/flyte_status_logs:inspect_execution_logs_cli -- "$@"
+bazel run //.ai/skills/obs-flyte-execution:inspect_execution_logs_cli -- "$@"
