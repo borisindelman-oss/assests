@@ -1,0 +1,4 @@
+interface:
+  display_name: "Flyte Status Logs"
+  short_description: "Inspect Flyte status and task log URIs"
+  default_prompt: "Use $flyte-status-logs to inspect this Flyte execution URL and summarize failures with log links."
