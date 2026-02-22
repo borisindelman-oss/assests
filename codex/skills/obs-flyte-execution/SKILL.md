@@ -34,11 +34,11 @@ Copy this skill into repo-local skills:
 
 ```bash
 cd /home/borisindelman/.codex/skills/obs-flyte-execution
-./scripts/install_to_wayvecode_ai_skills.sh
+./install.sh
 ```
 
 Optional custom destination:
 
 ```bash
-./scripts/install_to_wayvecode_ai_skills.sh /workspace/WayveCode/.ai/skills
+./install.sh /workspace/WayveCode/.ai/skills
 ```
